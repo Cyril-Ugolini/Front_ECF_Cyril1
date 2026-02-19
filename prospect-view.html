@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body data-header="retour">
 
 <!-- HEADER chargé via JavaScript -->
 <div id="header"></div>
-<script src="js/header.js"></script>
+
 
 <!-- LAYOUT -->
 <div class="container">
@@ -44,20 +44,16 @@
         </main>
 
         <!-- ASIDE (desktop uniquement) -->
-        <aside class="d-none d-md-block col-md-3">
-            <div class="p-3 bg-light border rounded">
-                <h5>Menu rapide</h5>
-                <ul class="list-unstyled">
-                    <li><a href="clients-list.html">Clients</a></li>
-                    <li><a href="prospects-list.html">Prospects</a></li>
-                    <li><a href="login.html">Connexion</a></li>
-                </ul>
-            </div>
-        </aside>
+        <div id="aside" class="col-md-3 d-none d-md-block"></div>
 
     </div>
 </div>
 
+<!-- FOOTER dynamique -->
+<div id="footer"></div>
+
+<!-- SCRIPTS -->
+<script src="template.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

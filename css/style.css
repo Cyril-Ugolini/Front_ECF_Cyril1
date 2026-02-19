@@ -64,14 +64,14 @@ h1, h2, h3, h4, h5 {
         align-self: flex-end;
     }
 }
-    /* Bouton Connexion plus petit et légèrement remonté */
-    .navbar-collapse .btn {
-        width: auto;
-        padding: 6px 14px;
-        font-size: 0.9rem;
-        margin-top: 5px; /* remonte le bouton */
-        align-self: flex-end;
-    }
+/* Bouton Connexion plus petit et légèrement remonté */
+.navbar-collapse .btn {
+    width: auto;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    margin-top: 5px; /* remonte le bouton */
+    align-self: flex-end;
+}
 
 /* ============================
    ASIDE (menu rapide)
@@ -79,6 +79,7 @@ h1, h2, h3, h4, h5 {
 aside {
     position: sticky;
     top: 90px;
+    min-width: 140px; /* évite que "Menu rapide" se coupe sur 2 lignes */
 }
 
 aside ul li {

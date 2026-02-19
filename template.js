@@ -17,6 +17,13 @@ fetch("template.html")
                 doc.getElementById("tpl-header").innerHTML;
         }
 
+        // Injecter l'aside (uniquement sur les pages qui ont un #aside)
+        const asideTarget = document.getElementById("aside");
+        if (asideTarget) {
+            asideTarget.innerHTML =
+                doc.getElementById("tpl-aside").innerHTML;
+        }
+
         // Inject footer
         document.getElementById("footer").innerHTML =
             doc.getElementById("tpl-footer").innerHTML;
