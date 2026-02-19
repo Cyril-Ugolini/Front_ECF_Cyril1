@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CRM - Fiche client</title>
+    <title>CRM - Supprimer un client</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -21,22 +21,24 @@
 
         <!-- CONTENU PRINCIPAL -->
         <main class="col-12 col-md-9">
-            <h1 class="mb-4">Fiche client</h1>
+            <h1 class="mb-4">Supprimer un client</h1>
 
             <div class="card shadow-sm">
                 <div class="card-body">
 
-                    <h4 class="card-title mb-3">Durand Jean</h4>
+                    <h4 class="card-title mb-3">Voulez-vous vraiment supprimer ce client ?</h4>
 
-                    <p><strong>Adresse :</strong> 12 rue de Paris</p>
+                    <p><strong>Nom :</strong> Durand Jean</p>
                     <p><strong>Ville :</strong> Paris</p>
-                    <p><strong>Code postal :</strong> 75000</p>
                     <p><strong>Téléphone :</strong> 06 00 00 00 00</p>
-                    <p><strong>Email :</strong> jean.durand@example.com</p>
+
+                    <div class="alert alert-danger mt-4">
+                        Cette action est irréversible.
+                    </div>
 
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="clients-list.html" class="btn btn-secondary">Retour</a>
-                        <a href="client-form.html" class="btn btn-warning">Modifier</a>
+                        <a href="clients-list.html" class="btn btn-secondary">Annuler</a>
+                        <a href="clients-list.html" class="btn btn-danger">Supprimer définitivement</a>
                     </div>
 
                 </div>

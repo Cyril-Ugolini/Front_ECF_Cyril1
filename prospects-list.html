@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CRM - Liste des clients</title>
+    <title>CRM - Liste des prospects</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -13,6 +13,7 @@
 
 <!-- HEADER chargé via JavaScript -->
 <div id="header"></div>
+<script src="js/header.js"></script>
 
 <!-- LAYOUT -->
 <div class="container">
@@ -20,10 +21,10 @@
 
         <!-- CONTENU PRINCIPAL -->
         <main class="col-12 col-md-9">
-            <h1 class="mb-4">Liste des clients</h1>
+            <h1 class="mb-4">Liste des prospects</h1>
 
             <div class="d-flex justify-content-end mb-3">
-                <a class="btn btn-success" href="client-form.html">Ajouter un client</a>
+                <a class="btn btn-success" href="prospect-form.html">Ajouter un prospect</a>
             </div>
 
             <div class="table-responsive">
@@ -39,24 +40,24 @@
                     <tbody>
 
                     <tr>
-                        <td>Durand</td>
-                        <td>Paris</td>
-                        <td>06 00 00 00 00</td>
+                        <td>Bernard</td>
+                        <td>Marseille</td>
+                        <td>06 22 33 44 55</td>
                         <td class="text-end">
-                            <a class="btn btn-primary btn-sm" href="client-view.html">Voir</a>
-                            <a class="btn btn-warning btn-sm" href="client-form.html">Modifier</a>
-                            <a class="btn btn-danger btn-sm" href="delete-client.html">Supprimer</a>
+                            <a class="btn btn-primary btn-sm" href="prospect-view.html">Voir</a>
+                            <a class="btn btn-warning btn-sm" href="prospect-form.html">Modifier</a>
+                            <a class="btn btn-danger btn-sm" href="delete-prospect.html">Supprimer</a>
                         </td>
                     </tr>
 
                     <tr>
-                        <td>Martin</td>
-                        <td>Lyon</td>
-                        <td>07 11 22 33 44</td>
+                        <td>Lefèvre</td>
+                        <td>Bordeaux</td>
+                        <td>07 55 66 77 88</td>
                         <td class="text-end">
-                            <a class="btn btn-primary btn-sm" href="client-view.html">Voir</a>
-                            <a class="btn btn-warning btn-sm" href="client-form.html">Modifier</a>
-                            <a class="btn btn-danger btn-sm" href="delete-client.html">Supprimer</a>
+                            <a class="btn btn-primary btn-sm" href="prospect-view.html">Voir</a>
+                            <a class="btn btn-warning btn-sm" href="prospect-form.html">Modifier</a>
+                            <a class="btn btn-danger btn-sm" href="delete-prospect.html">Supprimer</a>
                         </td>
                     </tr>
 
@@ -65,7 +66,7 @@
             </div>
         </main>
 
-        <!-- ASIDE (visible seulement sur desktop) -->
+        <!-- ASIDE (desktop uniquement) -->
         <aside class="d-none d-md-block col-md-3">
             <div class="p-3 bg-light border rounded">
                 <h5>Menu rapide</h5>

@@ -1,7 +1,139 @@
+/* ============================
+   STYLE GLOBAL
+============================ */
 body {
     background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
 }
 
-nav .nav-link {
+/* ============================
+   TITRES
+============================ */
+h1, h2, h3, h4, h5 {
+    font-weight: 600;
+}
+
+/* ============================
+   NAVBAR
+============================ */
+.navbar-nav .nav-link {
+    font-size: 1rem;
+}
+
+/* Garder un espace sur les côtés en mobile */
+@media (max-width: 579px) {
+    header .navbar {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
+
+/* ============================
+   NAVBAR MOBILE
+============================ */
+@media (max-width: 991px) {
+
+    /* Menu déroulant sous la navbar */
+    .navbar-collapse.collapse.show {
+        display: block !important;
+        position: absolute;
+        top: 60px; /* remonte le menu */
+        right: 0;
+        width: 35%; /* 🔥 encore plus réduit */
+        background: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 999;
+        text-align: right;
+    }
+
+    /* UL vertical aligné à droite */
+    .navbar-collapse .navbar-nav {
+        width: 100%;
+        margin: 0;
+        align-items: flex-end;
+    }
+
+    /* Bouton Connexion plus petit et légèrement remonté */
+    .navbar-collapse .btn {
+        width: auto;
+        padding: 6px 14px;
+        font-size: 0.9rem;
+        margin-top: 2px; /* 🔥 encore plus remonté */
+        align-self: flex-end;
+    }
+}
+    /* Bouton Connexion plus petit et légèrement remonté */
+    .navbar-collapse .btn {
+        width: auto;
+        padding: 6px 14px;
+        font-size: 0.9rem;
+        margin-top: 5px; /* remonte le bouton */
+        align-self: flex-end;
+    }
+
+/* ============================
+   ASIDE (menu rapide)
+============================ */
+aside {
+    position: sticky;
+    top: 90px;
+}
+
+aside ul li {
+    margin-bottom: 8px;
+}
+
+aside a {
+    text-decoration: none;
+    color: #0d6efd;
+}
+
+aside a:hover {
+    text-decoration: underline;
+}
+
+/* ============================
+   TABLES
+============================ */
+table th, table td {
+    vertical-align: middle;
+}
+
+/* ============================
+   FORMULAIRES
+============================ */
+form label {
     font-weight: 500;
+}
+
+/* ============================
+   CARDS
+============================ */
+.card {
+    border-radius: 8px;
+}
+
+/* ============================
+   RESPONSIVE GLOBAL
+============================ */
+@media (max-width: 768px) {
+    main {
+        margin-bottom: 2rem;
+    }
+}
+
+/* ============================
+   DESKTOP NAVBAR
+============================ */
+@media (min-width: 992px) {
+    .navbar-collapse {
+        flex-direction: row;
+        align-items: flex-end;
+    }
+
+    .navbar-collapse .navbar-nav {
+        margin-right: auto;
+    }
 }
