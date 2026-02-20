@@ -1,140 +1,372 @@
-/* ============================
-   STYLE GLOBAL
-============================ */
-body {
-    background-color: #f8f9fa;
-    font-family: Arial, sans-serif;
+/* ============================================================
+   VARIABLES
+============================================================ */
+:root {
+    --primary:      #0d6efd;
+    --primary-dark: #0b5ed7;
+    --bg:           #f8f9fa;
+    --bg-footer:    #e9ecef;
+    --text:         #1a1a2e;
+    --text-muted:   #8a94a6;
+    --border:       #e2e8f0;
+    --shadow:       0 4px 24px rgba(0, 0, 0, 0.08);
+    --radius:       12px;
 }
 
-/* ============================
-   TITRES
-============================ */
+/* ============================================================
+   RESET & BASE
+============================================================ */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg);
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    margin: 0;
+}
+
+/* ============================================================
+   TYPOGRAPHIE
+============================================================ */
 h1, h2, h3, h4, h5 {
     font-weight: 600;
 }
 
-/* ============================
-   NAVBAR
-============================ */
-.navbar-nav .nav-link {
-    font-size: 1rem;
+h1 { font-size: 1.8rem; }
+
+/* ============================================================
+   LAYOUT — footer collé en bas
+============================================================ */
+body > .container,
+body > .container-fluid,
+body > .row,
+body > main {
+    flex: 1;
 }
 
-/* Garder un espace sur les côtés en mobile */
-@media (max-width: 579px) {
-    header .navbar {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-    }
+/* ============================================================
+   HEADER CRM
+============================================================ */
+.crm-header {
+    background: #fff;
+    border-bottom: 1px solid #dde3ea;
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 100;
+    margin-bottom: 1.5rem;
 }
 
-/* ============================
-   NAVBAR MOBILE
-============================ */
-@media (max-width: 991px) {
-
-    /* Menu déroulant sous la navbar */
-    .navbar-collapse.collapse.show {
-        display: block !important;
-        position: absolute;
-        top: 60px; /* remonte le menu */
-        right: 0;
-        width: 35%; /* 🔥 encore plus réduit */
-        background: white;
-        padding: 10px 15px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        z-index: 999;
-        text-align: right;
-    }
-
-    /* UL vertical aligné à droite */
-    .navbar-collapse .navbar-nav {
-        width: 100%;
-        margin: 0;
-        align-items: flex-end;
-    }
-
-    /* Bouton Connexion plus petit et légèrement remonté */
-    .navbar-collapse .btn {
-        width: auto;
-        padding: 6px 14px;
-        font-size: 0.9rem;
-        margin-top: 2px; /* 🔥 encore plus remonté */
-        align-self: flex-end;
-    }
-}
-/* Bouton Connexion plus petit et légèrement remonté */
-.navbar-collapse .btn {
-    width: auto;
-    padding: 6px 14px;
-    font-size: 0.9rem;
-    margin-top: 5px; /* remonte le bouton */
-    align-self: flex-end;
+.crm-brand {
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #1a2332;
+    text-decoration: none;
+    white-space: nowrap;
 }
 
-/* ============================
-   ASIDE (menu rapide)
-============================ */
+/* --- Burger button --- */
+.crm-burger {
+    background: none;
+    border: 1.5px solid #c8d0da;
+    border-radius: 6px;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: border-color 0.2s;
+}
+.crm-burger:hover { border-color: #1a56db; }
+
+.crm-burger span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: #4a5568;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+.crm-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.crm-burger.open span:nth-child(2) { opacity: 0; }
+.crm-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* --- Nav panel --- */
+.crm-nav-panel {
+    position: absolute;
+    top: 56px;
+    right: 0;
+    width: 280px;
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s;
+}
+.crm-nav-panel.open {
+    max-height: 600px;
+    opacity: 1;
+}
+
+/* --- Accordéons --- */
+.crm-acc-item { border-bottom: 1px solid #eef0f4; }
+
+.crm-acc-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1a2332;
+    transition: background 0.15s;
+}
+.crm-acc-toggle:hover { background: #f5f7fa; }
+
+.crm-arrow { font-size: 0.6rem; color: #6b7a8d; }
+.crm-acc-toggle .crm-arrow::before { content: '▼'; }
+.crm-acc-toggle.open .crm-arrow::before { content: '▲'; }
+
+.crm-acc-content {
+    max-height: 0;
+    overflow: hidden;
+    background: #f9fafc;
+    transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.crm-acc-content.open { max-height: 300px; }
+
+.crm-acc-content a {
+    display: block;
+    padding: 11px 36px;
+    font-size: 0.88rem;
+    color: #4a5568;
+    text-decoration: none;
+    transition: color 0.15s, background 0.15s;
+}
+.crm-acc-content a:hover {
+    background: #eef2fb;
+    color: #1a56db;
+}
+
+/* --- Bouton Connexion --- */
+.crm-nav-connexion { padding: 16px 20px; }
+
+.crm-btn-connexion {
+    display: block;
+    width: 100%;
+    background: #1a56db;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.crm-btn-connexion:hover { background: #1648c0; }
+
+/* --- Bouton Retour --- */
+.crm-btn-retour {
+    margin-left: auto;
+    border: 1.5px solid #1a56db;
+    color: #1a56db;
+    background: none;
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+.crm-btn-retour:hover {
+    background: #1a56db;
+    color: #fff;
+}
+
+/* ============================================================
+   ASIDE
+============================================================ */
 aside {
     position: sticky;
     top: 90px;
-    min-width: 140px; /* évite que "Menu rapide" se coupe sur 2 lignes */
+    min-width: 140px;
 }
 
-aside ul li {
-    margin-bottom: 8px;
-}
+aside ul li { margin-bottom: 8px; }
 
 aside a {
     text-decoration: none;
-    color: #0d6efd;
+    color: var(--primary);
 }
+aside a:hover { text-decoration: underline; }
 
-aside a:hover {
-    text-decoration: underline;
-}
-
-/* ============================
-   TABLES
-============================ */
-table th, table td {
-    vertical-align: middle;
-}
-
-/* ============================
+/* ============================================================
    FORMULAIRES
-============================ */
-form label {
-    font-weight: 500;
+============================================================ */
+form label { font-weight: 500; }
+
+.form-control {
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background-color: #f8fafc;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+    background-color: #fff;
 }
 
-/* ============================
+/* ============================================================
+   TABLES
+============================================================ */
+table th, table td { vertical-align: middle; }
+
+/* ============================================================
    CARDS
-============================ */
+============================================================ */
 .card {
-    border-radius: 8px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: none;
 }
 
-/* ============================
-   RESPONSIVE GLOBAL
-============================ */
-@media (max-width: 768px) {
-    main {
-        margin-bottom: 2rem;
+/* ============================================================
+   LOGIN
+============================================================ */
+.login-page {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-page .card {
+    width: 100%;
+    max-width: 450px;
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer {
+    background-color: var(--bg-footer) !important;
+    border-top: 1px solid var(--border);
+    padding: 0.8rem 1rem !important;
+    font-size: 0.78rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+footer a:hover { color: var(--primary); }
+
+footer .list-inline-item:not(:last-child)::after {
+    content: " |";
+    margin-left: 0.3rem;
+}
+
+/* ============================================================
+   RESPONSIVE — Tablette (< 992px)
+============================================================ */
+@media (max-width: 991px) {
+
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .row {
+        flex: 1;
+    }
+
+    #aside { display: none !important; }
+
+    main.col-12.col-md-9 {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 1 !important;
+        margin: 0 auto;
     }
 }
 
-/* ============================
-   DESKTOP NAVBAR
-============================ */
-@media (min-width: 992px) {
-    .navbar-collapse {
-        flex-direction: row;
-        align-items: flex-end;
+/* ============================================================
+   RESPONSIVE — Mobile (< 768px)
+============================================================ */
+@media (max-width: 767px) {
+
+    h1 { font-size: 1.4rem; }
+
+    .crm-header {
+        padding: 0 12px;
+        margin-bottom: 1rem;
     }
 
-    .navbar-collapse .navbar-nav {
-        margin-right: auto;
+    .crm-nav-panel {
+        width: 100vw;
+        border-radius: 0;
     }
+
+    .col-md-6 { width: 100% !important; }
+
+    .table-responsive { font-size: 0.85rem; }
+
+    .btn-sm {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+
+    footer {
+        margin-top: 2rem;
+        padding: 1rem !important;
+    }
+
+    .footer-links .list-inline-item {
+        display: block;
+        margin: 3px 0;
+    }
+    .footer-links .list-inline-item::after { display: none !important; }
+}
+
+/* ============================================================
+   RESPONSIVE — Très petits écrans (< 400px)
+============================================================ */
+@media (max-width: 400px) {
+    h1 { font-size: 1.2rem; }
+    .btn { font-size: 0.82rem; }
+    .crm-header { padding: 0 8px; }
 }
