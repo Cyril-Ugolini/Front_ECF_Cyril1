@@ -11,7 +11,7 @@
 
 <body data-header="retour">
 
-<!-- HEADER chargé via JavaScript -->
+<!-- HEADER dynamique -->
 <div id="header"></div>
 
 <!-- LAYOUT -->
@@ -23,7 +23,7 @@
             <h1 class="mb-4">Liste des clients</h1>
 
             <div class="d-flex justify-content-end mb-3">
-                <a class="btn btn-success" href="client-form.html">Ajouter un client</a>
+                <a class="btn btn-success" href="client-form.html" onclick="localStorage.removeItem('clientAModifier')">Ajouter un client</a>
             </div>
 
             <div class="table-responsive">
@@ -43,8 +43,8 @@
                         <td>Paris</td>
                         <td>06 00 00 00 00</td>
                         <td class="text-end">
-                            <a class="btn btn-primary btn-sm" href="client-view.html">Voir</a>
-                            <a class="btn btn-warning btn-sm" href="client-form.html">Modifier</a>
+                            <button class="btn btn-primary btn-sm" onclick="voirClient('Durand', 'Jean', '12 rue de Paris', 'Paris', '75000', '06 00 00 00 00', 'jean.durand@example.com', '0')">Voir</button>
+                            <button class="btn btn-warning btn-sm" onclick="modifierClient('Durand', 'Jean', '12 rue de Paris', 'Paris', '75000', '06 00 00 00 00', 'jean.durand@example.com', '0')">Modifier</button>
                             <a class="btn btn-danger btn-sm" href="delete-client.html">Supprimer</a>
                         </td>
                     </tr>
@@ -54,8 +54,8 @@
                         <td>Lyon</td>
                         <td>07 11 22 33 44</td>
                         <td class="text-end">
-                            <a class="btn btn-primary btn-sm" href="client-view.html">Voir</a>
-                            <a class="btn btn-warning btn-sm" href="client-form.html">Modifier</a>
+                            <button class="btn btn-primary btn-sm" onclick="voirClient('Martin', 'Sophie', '5 rue de la République', 'Lyon', '69000', '07 11 22 33 44', 'sophie.martin@example.com', '0')">Voir</button>
+                            <button class="btn btn-warning btn-sm" onclick="modifierClient('Martin', 'Sophie', '5 rue de la République', 'Lyon', '69000', '07 11 22 33 44', 'sophie.martin@example.com', '0')">Modifier</button>
                             <a class="btn btn-danger btn-sm" href="delete-client.html">Supprimer</a>
                         </td>
                     </tr>
@@ -77,6 +77,21 @@
 <!-- SCRIPTS -->
 <script src="template.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function voirClient(nom, prenom, adresse, ville, codePostal, telephone, email, chiffreAffaires) {
+        localStorage.setItem('clientAVoir', JSON.stringify({
+            nom, prenom, adresse, ville, codePostal, telephone, email, chiffreAffaires
+        }));
+        window.location.href = 'client-view.html';
+    }
+
+    function modifierClient(nom, prenom, adresse, ville, codePostal, telephone, email, chiffreAffaires) {
+        localStorage.setItem('clientAModifier', JSON.stringify({
+            nom, prenom, adresse, ville, codePostal, telephone, email, chiffreAffaires
+        }));
+        window.location.href = 'client-form.html';
+    }
+</script>
 
 </body>
 </html>

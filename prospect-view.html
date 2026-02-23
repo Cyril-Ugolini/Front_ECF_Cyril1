@@ -11,9 +11,8 @@
 
 <body data-header="retour">
 
-<!-- HEADER chargé via JavaScript -->
+<!-- HEADER dynamique -->
 <div id="header"></div>
-
 
 <!-- LAYOUT -->
 <div class="container">
@@ -26,17 +25,20 @@
             <div class="card shadow-sm">
                 <div class="card-body">
 
-                    <h4 class="card-title mb-3">Bernard Sophie</h4>
+                    <h4 class="card-title mb-3" id="view-nom-complet"></h4>
 
-                    <p><strong>Adresse :</strong> 45 avenue du Port</p>
-                    <p><strong>Ville :</strong> Marseille</p>
-                    <p><strong>Code postal :</strong> 13000</p>
-                    <p><strong>Téléphone :</strong> 06 22 33 44 55</p>
-                    <p><strong>Email :</strong> sophie.bernard@example.com</p>
+                    <p><strong>Adresse :</strong> <span id="view-adresse"></span></p>
+                    <p><strong>Ville :</strong> <span id="view-ville"></span></p>
+                    <p><strong>Code postal :</strong> <span id="view-cp"></span></p>
+                    <p><strong>Téléphone :</strong> <span id="view-tel"></span></p>
+                    <p><strong>Email :</strong> <span id="view-email"></span></p>
+                    <p><strong>Nombre d'employés :</strong> <span id="view-employes"></span></p>
+                    <p><strong>Chiffre d'affaires :</strong> <span id="view-ca"></span> €</p>
+                    <p><strong>Intérêt :</strong> <span id="view-interesse"></span></p>
 
                     <div class="d-flex justify-content-between mt-4">
                         <a href="prospects-list.html" class="btn btn-secondary">Retour</a>
-                        <a href="prospect-form.html" class="btn btn-warning">Modifier</a>
+                        <button class="btn btn-warning" id="btn-modifier">Modifier</button>
                     </div>
 
                 </div>
@@ -55,6 +57,34 @@
 <!-- SCRIPTS -->
 <script src="template.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Récupération des données depuis le localStorage
+    const prospectData = localStorage.getItem('prospectAVoir');
+
+    if (prospectData) {
+        const prospect = JSON.parse(prospectData);
+
+        document.getElementById('view-nom-complet').textContent = prospect.nom + ' ' + prospect.prenom;
+        document.getElementById('view-adresse').textContent = prospect.adresse;
+        document.getElementById('view-ville').textContent = prospect.ville;
+        document.getElementById('view-cp').textContent = prospect.codePostal;
+        document.getElementById('view-tel').textContent = prospect.telephone;
+        document.getElementById('view-email').textContent = prospect.email;
+        document.getElementById('view-employes').textContent = prospect.nbEmployes;
+        document.getElementById('view-ca').textContent = prospect.chiffreAffaires;
+        document.getElementById('view-interesse').textContent = prospect.interesse;
+
+        // Bouton modifier depuis la fiche
+        document.getElementById('btn-modifier').addEventListener('click', function () {
+            localStorage.setItem('prospectAModifier', JSON.stringify(prospect));
+            window.location.href = 'prospect-form.html';
+        });
+
+    } else {
+        // Si on arrive ici sans données, on redirige vers la liste
+        window.location.href = 'prospects-list.html';
+    }
+</script>
 
 </body>
 </html>

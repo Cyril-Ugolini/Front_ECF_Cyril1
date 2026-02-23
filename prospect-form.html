@@ -20,7 +20,7 @@
 
         <!-- CONTENU PRINCIPAL -->
         <main class="col-12 col-md-9">
-            <h1 class="mb-4">Ajouter / Modifier un prospect</h1>
+            <h1 class="mb-4" id="form-titre">Ajouter un prospect</h1>
 
             <form class="row g-3" id="prospect-form" novalidate>
 
@@ -112,9 +112,25 @@
 <!-- SCRIPTS -->
 <script src="template.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/validation.js"></script>
+<script src="validation.js"></script>
 <script>
-    initFormValidation('prospect-form', 'prospect');
+    // Pré-remplissage si on vient de "Modifier"
+    const prospectData = localStorage.getItem('prospectAModifier');
+    if (prospectData) {
+        const prospect = JSON.parse(prospectData);
+        document.getElementById('form-titre').textContent = 'Modifier un prospect';
+        document.getElementById('prospect-nom').value = prospect.nom;
+        document.getElementById('prospect-prenom').value = prospect.prenom;
+        document.getElementById('prospect-adresse').value = prospect.adresse;
+        document.getElementById('prospect-ville').value = prospect.ville;
+        document.getElementById('prospect-cp').value = prospect.codePostal;
+        document.getElementById('prospect-tel').value = prospect.telephone;
+        document.getElementById('prospect-email').value = prospect.email;
+        document.getElementById('prospect-nb-employes').value = prospect.nbEmployes;
+        document.getElementById('prospect-ca').value = prospect.chiffreAffaires;
+        document.getElementById('prospect-interesse').value = prospect.interesse;
+    }
+
 </script>
 
 </body>
