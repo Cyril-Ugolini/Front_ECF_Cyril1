@@ -8,9 +8,5 @@
     "dev": "npx serve . --listen 3000"
   },
   "author": "Cyril",
-  "license": "ISC",
-  "devDependencies": {
-    "serve": "^14.2.3"
-  },
-  "dependencies": {}
+  "license": "ISC"
 }
