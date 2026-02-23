@@ -22,42 +22,59 @@
         <main class="col-12 col-md-9">
             <h1 class="mb-4">Ajouter / Modifier un client</h1>
 
-            <form class="row g-3">
+            <form class="row g-3" id="client-form" novalidate>
 
                 <div class="col-md-6">
-                    <label class="form-label">Nom</label>
-                    <input type="text" class="form-control" placeholder="Nom du client">
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label">Prénom</label>
-                    <input type="text" class="form-control" placeholder="Prénom du client">
+                    <label for="client-nom" class="form-label">Nom <span class="text-danger">*</span></label>
+                    <input type="text" id="client-nom" name="nom" class="form-control" placeholder="Nom du client" required minlength="2" maxlength="100">
+                    <div class="invalid-feedback">Le nom est obligatoire (2 caractères minimum).</div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">Adresse</label>
-                    <input type="text" class="form-control" placeholder="Adresse">
+                    <label for="client-prenom" class="form-label">Prénom <span class="text-danger">*</span></label>
+                    <input type="text" id="client-prenom" name="prenom" class="form-control" placeholder="Prénom du client" required minlength="2" maxlength="100">
+                    <div class="invalid-feedback">Le prénom est obligatoire (2 caractères minimum).</div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">Ville</label>
-                    <input type="text" class="form-control" placeholder="Ville">
+                    <label for="client-adresse" class="form-label">Adresse <span class="text-danger">*</span></label>
+                    <input type="text" id="client-adresse" name="adresse" class="form-control" placeholder="Adresse" required>
+                    <div class="invalid-feedback">L'adresse est obligatoire.</div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">Code postal</label>
-                    <input type="text" class="form-control" placeholder="Code postal">
+                    <label for="client-ville" class="form-label">Ville <span class="text-danger">*</span></label>
+                    <input type="text" id="client-ville" name="ville" class="form-control" placeholder="Ville" required>
+                    <div class="invalid-feedback">La ville est obligatoire.</div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">Téléphone</label>
-                    <input type="text" class="form-control" placeholder="Téléphone">
+                    <label for="client-cp" class="form-label">Code postal <span class="text-danger">*</span></label>
+                    <input type="text" id="client-cp" name="codePostal" class="form-control" placeholder="Ex : 75001" required pattern="[0-9]{5}">
+                    <div class="invalid-feedback">Le code postal doit contenir 5 chiffres.</div>
                 </div>
 
-                <div class="col-md-12">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" placeholder="Adresse email">
+                <div class="col-md-6">
+                    <label for="client-tel" class="form-label">Téléphone <span class="text-danger">*</span></label>
+                    <input type="tel" id="client-tel" name="telephone" class="form-control" placeholder="Ex : 06 00 00 00 00" required pattern="^(0[1-9])(\s?\d{2}){4}$">
+                    <div class="invalid-feedback">Format téléphone invalide (ex : 06 00 00 00 00).</div>
                 </div>
+
+                <div class="col-md-6">
+                    <label for="client-email" class="form-label">Email <span class="text-danger">*</span></label>
+                    <input type="email" id="client-email" name="email" class="form-control" placeholder="Adresse email" required>
+                    <div class="invalid-feedback">Veuillez saisir une adresse email valide.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="client-ca" class="form-label">Chiffre d'affaires (€)</label>
+                    <input type="number" id="client-ca" name="chiffreAffaires" class="form-control" placeholder="Ex : 50000" min="0">
+                    <div class="invalid-feedback">Le chiffre d'affaires ne peut pas être négatif.</div>
+                </div>
+
+                <p class="text-muted small mt-2"><span class="text-danger">*</span> Champs obligatoires</p>
+
+                <div id="form-error" class="alert alert-danger d-none" role="alert"></div>
 
                 <div class="col-12 d-flex justify-content-between mt-4">
                     <a href="clients-list.html" class="btn btn-secondary">Retour</a>
@@ -79,6 +96,10 @@
 <!-- SCRIPTS -->
 <script src="template.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/validation.js"></script>
+<script>
+    initFormValidation('client-form', 'client');
+</script>
 
 </body>
 </html>
