@@ -21,9 +21,9 @@
                 </button>
                 <div class="crm-acc-content" id="acc-clients">
                     <a href="clients-list.html">Liste des clients</a>
-                    <a href="client-form.html">Créer un client</a>
-                    <a href="client-form.html">Modifier</a>
-                    <a href="delete-client.html">Supprimer</a>
+                    <a href="client-form.html" onclick="localStorage.removeItem('clientAModifier')">Créer un client</a>
+                    <a href="clients-list.html?mode=modifier">Modifier un client</a>
+                    <a href="clients-list.html?mode=supprimer">Supprimer un client</a>
                 </div>
             </div>
 
@@ -35,9 +35,9 @@
                 </button>
                 <div class="crm-acc-content" id="acc-prospects">
                     <a href="prospects-list.html">Liste des prospects</a>
-                    <a href="prospect-form.html">Créer un prospect</a>
-                    <a href="prospect-form.html">Modifier</a>
-                    <a href="delete-prospect.html">Supprimer</a>
+                    <a href="prospect-form.html" onclick="localStorage.removeItem('prospectAModifier')">Créer un prospect</a>
+                    <a href="prospects-list.html?mode=modifier">Modifier un prospect</a>
+                    <a href="prospects-list.html?mode=supprimer">Supprimer un prospect</a>
                 </div>
             </div>
 

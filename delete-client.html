@@ -11,9 +11,8 @@
 
 <body data-header="retour">
 
-<!-- HEADER chargé via JavaScript -->
+<!-- HEADER dynamique -->
 <div id="header"></div>
-
 
 <!-- LAYOUT -->
 <div class="container">
@@ -28,9 +27,9 @@
 
                     <h4 class="card-title mb-3">Voulez-vous vraiment supprimer ce client ?</h4>
 
-                    <p><strong>Nom :</strong> Durand Jean</p>
-                    <p><strong>Ville :</strong> Paris</p>
-                    <p><strong>Téléphone :</strong> 06 00 00 00 00</p>
+                    <p><strong>Nom :</strong> <span id="delete-nom"></span></p>
+                    <p><strong>Ville :</strong> <span id="delete-ville"></span></p>
+                    <p><strong>Téléphone :</strong> <span id="delete-tel"></span></p>
 
                     <div class="alert alert-danger mt-4">
                         Cette action est irréversible.
@@ -38,7 +37,7 @@
 
                     <div class="d-flex justify-content-between mt-4">
                         <a href="clients-list.html" class="btn btn-secondary">Annuler</a>
-                        <a href="clients-list.html" class="btn btn-danger">Supprimer définitivement</a>
+                        <button class="btn btn-danger" id="btn-supprimer">Supprimer définitivement</button>
                     </div>
 
                 </div>
@@ -57,6 +56,32 @@
 <!-- SCRIPTS -->
 <script src="template.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const clientData = localStorage.getItem('clientASupprimer');
+
+        if (clientData) {
+            const client = JSON.parse(clientData);
+
+            document.getElementById('delete-nom').textContent = client.nom + ' ' + client.prenom;
+            document.getElementById('delete-ville').textContent = client.ville;
+            document.getElementById('delete-tel').textContent = client.telephone;
+
+            document.getElementById('btn-supprimer').addEventListener('click', function () {
+                // TODO : appel API suppression backend JakartaEE
+                localStorage.removeItem('clientASupprimer');
+                alert('Client supprimé ! (suppression serveur à connecter)');
+                window.location.href = 'clients-list.html';
+            });
+
+        } else {
+            // Si on arrive ici sans données, on redirige vers la liste
+            window.location.href = 'clients-list.html';
+        }
+
+    });
+</script>
 
 </body>
 </html>
