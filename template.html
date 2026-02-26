@@ -3,7 +3,7 @@
 <!-- HEADER COMPLET (menu burger avec accordéons) -->
 <div id="tpl-header">
     <header class="crm-header">
-        <a class="crm-brand" href="index.html">ENTREPRISE</a>
+        <a class="crm-brand" href="Index.html">ENTREPRISE</a>
 
         <button class="crm-burger" id="burger-main" aria-label="Ouvrir le menu">
             <span></span>
@@ -41,9 +41,9 @@
                 </div>
             </div>
 
-            <!-- Connexion -->
-            <div class="crm-nav-connexion">
-                <a href="login.html" class="crm-btn-connexion">Connexion</a>
+            <!-- Connexion / Déconnexion -->
+            <div class="crm-nav-connexion" id="nav-connexion">
+                <!-- Rempli dynamiquement par template.js -->
             </div>
 
         </nav>
@@ -54,7 +54,7 @@
 <!-- HEADER AVEC BOUTON RETOUR -->
 <div id="tpl-header-retour">
     <header class="crm-header">
-        <a class="crm-brand" href="index.html">ENTREPRISE</a>
+        <a class="crm-brand" href="Index.html">ENTREPRISE</a>
         <button class="crm-btn-retour" onclick="history.back()">← Retour</button>
     </header>
 </div>
@@ -68,8 +68,8 @@
             <ul class="list-unstyled">
                 <li><a href="clients-list.html">Clients</a></li>
                 <li><a href="prospects-list.html">Prospects</a></li>
-                <li><a href="login.html">Connexion</a></li>
             </ul>
+            <div id="aside-connexion"></div>
         </div>
     </aside>
 </div>

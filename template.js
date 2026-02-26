@@ -1,12 +1,39 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Pages qui nécessitent une connexion
+    const pagesProtegees = [
+        'client-form.html',
+        'prospect-form.html',
+        'delete-client.html',
+        'delete-prospect.html'
+    ];
+
+    // Vérification de connexion sur les pages protégées
+    const pageCourante = window.location.pathname.split('/').pop();
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+    // Vérification du mode dans l'URL
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get('mode');
+
+    // Si on essaie d'accéder à une page protégée sans être connecté
+    if (pagesProtegees.includes(pageCourante) && !isLoggedIn) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // Si on essaie d'accéder aux modes modifier/supprimer sans être connecté
+    if ((mode === 'modifier' || mode === 'supprimer') && !isLoggedIn) {
+        window.location.href = 'login.html';
+        return;
+    }
+
     fetch("template.html")
         .then(res => res.text())
         .then(html => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, "text/html");
 
-            // On regarde quel header la page demande
             const headerType = document.body.getAttribute("data-header");
 
             if (headerType === "retour") {
@@ -16,20 +43,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById("header").innerHTML =
                     doc.getElementById("tpl-header").innerHTML;
 
-                // Initialiser le burger menu après injection
                 initBurgerMenu();
             }
 
-            // Injecter l'aside (uniquement sur les pages qui ont un #aside)
             const asideTarget = document.getElementById("aside");
             if (asideTarget) {
                 asideTarget.innerHTML =
                     doc.getElementById("tpl-aside").innerHTML;
             }
 
-            // Injecter le footer
             document.getElementById("footer").innerHTML =
                 doc.getElementById("tpl-footer").innerHTML;
+
+            gererConnexion();
+
         })
         .catch(err => {
             console.error("Erreur lors du chargement du template :", err);
@@ -41,13 +68,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!burger || !panel) return;
 
-        // Ouvrir / fermer le panel
         burger.addEventListener("click", () => {
             burger.classList.toggle("open");
             panel.classList.toggle("open");
         });
 
-        // Fermer si clic en dehors
         document.addEventListener("click", (e) => {
             if (!burger.contains(e.target) && !panel.contains(e.target)) {
                 burger.classList.remove("open");
@@ -55,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Accordéons
         panel.querySelectorAll(".crm-acc-toggle").forEach(btn => {
             btn.addEventListener("click", () => {
                 const content = document.getElementById(btn.dataset.target);
@@ -63,6 +87,48 @@ document.addEventListener('DOMContentLoaded', function () {
                 content.classList.toggle("open");
             });
         });
+    }
+
+    function gererConnexion() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const username = localStorage.getItem('username');
+
+        // Bouton dans le menu burger
+        const navConnexion = document.getElementById('nav-connexion');
+        if (navConnexion) {
+            if (isLoggedIn) {
+                navConnexion.innerHTML = `
+                    <p class="crm-username">👤 ${username}</p>
+                    <a href="logout.html" class="crm-btn-connexion">Déconnexion</a>
+                `;
+            } else {
+                navConnexion.innerHTML = `
+                    <a href="login.html" class="crm-btn-connexion">Connexion</a>
+                `;
+            }
+        }
+
+        // Bouton dans l'aside
+        const asideConnexion = document.getElementById('aside-connexion');
+        if (asideConnexion) {
+            if (isLoggedIn) {
+                asideConnexion.innerHTML = `
+                    <p class="mt-2 mb-1 small">👤 ${username}</p>
+                    <a href="logout.html" class="btn btn-danger btn-sm w-100">Déconnexion</a>
+                `;
+            } else {
+                asideConnexion.innerHTML = `
+                    <a href="login.html" class="btn btn-primary btn-sm w-100 mt-2">Connexion</a>
+                `;
+            }
+        }
+
+        // Masquer Modifier/Supprimer si non connecté
+        if (!isLoggedIn) {
+            document.querySelectorAll('.btn-modifier, .btn-supprimer').forEach(btn => {
+                btn.classList.add('d-none');
+            });
+        }
     }
 
 });

@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CRM - Supprimer un prospect</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body data-header="retour">
 
-<!-- HEADER chargé via JavaScript -->
+<!-- HEADER dynamique -->
 <div id="header"></div>
-
 
 <!-- LAYOUT -->
 <div class="container">
@@ -28,9 +27,9 @@
 
                     <h4 class="card-title mb-3">Voulez-vous vraiment supprimer ce prospect ?</h4>
 
-                    <p><strong>Nom :</strong> Bernard Sophie</p>
-                    <p><strong>Ville :</strong> Marseille</p>
-                    <p><strong>Téléphone :</strong> 06 22 33 44 55</p>
+                    <p><strong>Nom :</strong> <span id="delete-nom"></span></p>
+                    <p><strong>Ville :</strong> <span id="delete-ville"></span></p>
+                    <p><strong>Téléphone :</strong> <span id="delete-tel"></span></p>
 
                     <div class="alert alert-danger mt-4">
                         Cette action est irréversible.
@@ -38,7 +37,7 @@
 
                     <div class="d-flex justify-content-between mt-4">
                         <a href="prospects-list.html" class="btn btn-secondary">Annuler</a>
-                        <a href="prospects-list.html" class="btn btn-danger">Supprimer définitivement</a>
+                        <button class="btn btn-danger" id="btn-supprimer">Supprimer définitivement</button>
                     </div>
 
                 </div>
@@ -56,7 +55,33 @@
 
 <!-- SCRIPTS -->
 <script src="template.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script><link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const prospectData = localStorage.getItem('prospectASupprimer');
+
+        if (prospectData) {
+            const prospect = JSON.parse(prospectData);
+
+            document.getElementById('delete-nom').textContent = prospect.nom + ' ' + prospect.prenom;
+            document.getElementById('delete-ville').textContent = prospect.ville;
+            document.getElementById('delete-tel').textContent = prospect.telephone;
+
+            document.getElementById('btn-supprimer').addEventListener('click', function () {
+                // TODO : appel API suppression backend JakartaEE
+                localStorage.removeItem('prospectASupprimer');
+                alert('Prospect supprimé ! (suppression serveur à connecter)');
+                window.location.href = 'prospects-list.html';
+            });
+
+        } else {
+            // Si on arrive ici sans données, on redirige vers la liste
+            window.location.href = 'prospects-list.html';
+        }
+
+    });
+</script>
 
 </body>
 </html>

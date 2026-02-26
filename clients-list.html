@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CRM - Liste des clients</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -22,7 +22,7 @@
         <main class="col-12 col-md-9">
             <h1 class="mb-4" id="titre-liste">Liste des clients</h1>
 
-            <div class="d-flex justify-content-end mb-3">
+            <div class="d-flex justify-content-end mb-3" id="btn-ajouter">
                 <a class="btn btn-success" href="client-form.html" onclick="localStorage.removeItem('clientAModifier')">Ajouter un client</a>
             </div>
 
@@ -43,8 +43,8 @@
                         <td>Paris</td>
                         <td>06 00 00 00 00</td>
                         <td class="text-end">
-                            <button class="btn btn-primary btn-sm btn-voir" onclick="voirClient('Durand', 'Jean', '12 rue de Paris', 'Paris', '75000', '06 00 00 00 00', 'jean.durand@example.com', '0')">Voir</button>
-                            <button class="btn btn-warning btn-sm btn-modifier" onclick="modifierClient('Durand', 'Jean', '12 rue de Paris', 'Paris', '75000', '06 00 00 00 00', 'jean.durand@example.com', '0')">Modifier</button>
+                            <button class="btn btn-primary btn-sm btn-voir" onclick="voirClient('Durand', 'Jean', '12 rue de Paris', 'Paris', '75000', '06 00 00 00 00', 'jean.durand@example.com', '150000')">Voir</button>
+                            <button class="btn btn-warning btn-sm btn-modifier" onclick="modifierClient('Durand', 'Jean', '12 rue de Paris', 'Paris', '75000', '06 00 00 00 00', 'jean.durand@example.com', '150000')">Modifier</button>
                             <button class="btn btn-danger btn-sm btn-supprimer" onclick="supprimerClient('Durand', 'Jean', 'Paris', '06 00 00 00 00')">Supprimer</button>
                         </td>
                     </tr>
@@ -54,9 +54,53 @@
                         <td>Lyon</td>
                         <td>07 11 22 33 44</td>
                         <td class="text-end">
-                            <button class="btn btn-primary btn-sm btn-voir" onclick="voirClient('Martin', 'Sophie', '5 rue de la République', 'Lyon', '69000', '07 11 22 33 44', 'sophie.martin@example.com', '0')">Voir</button>
-                            <button class="btn btn-warning btn-sm btn-modifier" onclick="modifierClient('Martin', 'Sophie', '5 rue de la République', 'Lyon', '69000', '07 11 22 33 44', 'sophie.martin@example.com', '0')">Modifier</button>
+                            <button class="btn btn-primary btn-sm btn-voir" onclick="voirClient('Martin', 'Sophie', '5 rue de la République', 'Lyon', '69000', '07 11 22 33 44', 'sophie.martin@example.com', '80000')">Voir</button>
+                            <button class="btn btn-warning btn-sm btn-modifier" onclick="modifierClient('Martin', 'Sophie', '5 rue de la République', 'Lyon', '69000', '07 11 22 33 44', 'sophie.martin@example.com', '80000')">Modifier</button>
                             <button class="btn btn-danger btn-sm btn-supprimer" onclick="supprimerClient('Martin', 'Sophie', 'Lyon', '07 11 22 33 44')">Supprimer</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Petit</td>
+                        <td>Toulouse</td>
+                        <td>06 33 44 55 66</td>
+                        <td class="text-end">
+                            <button class="btn btn-primary btn-sm btn-voir" onclick="voirClient('Petit', 'Marc', '3 allée des Violettes', 'Toulouse', '31000', '06 33 44 55 66', 'marc.petit@example.com', '200000')">Voir</button>
+                            <button class="btn btn-warning btn-sm btn-modifier" onclick="modifierClient('Petit', 'Marc', '3 allée des Violettes', 'Toulouse', '31000', '06 33 44 55 66', 'marc.petit@example.com', '200000')">Modifier</button>
+                            <button class="btn btn-danger btn-sm btn-supprimer" onclick="supprimerClient('Petit', 'Marc', 'Toulouse', '06 33 44 55 66')">Supprimer</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Moreau</td>
+                        <td>Nantes</td>
+                        <td>07 44 55 66 77</td>
+                        <td class="text-end">
+                            <button class="btn btn-primary btn-sm btn-voir" onclick="voirClient('Moreau', 'Claire', '8 rue du Château', 'Nantes', '44000', '07 44 55 66 77', 'claire.moreau@example.com', '95000')">Voir</button>
+                            <button class="btn btn-warning btn-sm btn-modifier" onclick="modifierClient('Moreau', 'Claire', '8 rue du Château', 'Nantes', '44000', '07 44 55 66 77', 'claire.moreau@example.com', '95000')">Modifier</button>
+                            <button class="btn btn-danger btn-sm btn-supprimer" onclick="supprimerClient('Moreau', 'Claire', 'Nantes', '07 44 55 66 77')">Supprimer</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Simon</td>
+                        <td>Strasbourg</td>
+                        <td>06 55 66 77 88</td>
+                        <td class="text-end">
+                            <button class="btn btn-primary btn-sm btn-voir" onclick="voirClient('Simon', 'Pierre', '15 rue de l\'Église', 'Strasbourg', '67000', '06 55 66 77 88', 'pierre.simon@example.com', '320000')">Voir</button>
+                            <button class="btn btn-warning btn-sm btn-modifier" onclick="modifierClient('Simon', 'Pierre', '15 rue de l\'Église', 'Strasbourg', '67000', '06 55 66 77 88', 'pierre.simon@example.com', '320000')">Modifier</button>
+                            <button class="btn btn-danger btn-sm btn-supprimer" onclick="supprimerClient('Simon', 'Pierre', 'Strasbourg', '06 55 66 77 88')">Supprimer</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Laurent</td>
+                        <td>Bordeaux</td>
+                        <td>07 66 77 88 99</td>
+                        <td class="text-end">
+                            <button class="btn btn-primary btn-sm btn-voir" onclick="voirClient('Laurent', 'Marie', '22 cours Victor Hugo', 'Bordeaux', '33000', '07 66 77 88 99', 'marie.laurent@example.com', '110000')">Voir</button>
+                            <button class="btn btn-warning btn-sm btn-modifier" onclick="modifierClient('Laurent', 'Marie', '22 cours Victor Hugo', 'Bordeaux', '33000', '07 66 77 88 99', 'marie.laurent@example.com', '110000')">Modifier</button>
+                            <button class="btn btn-danger btn-sm btn-supprimer" onclick="supprimerClient('Laurent', 'Marie', 'Bordeaux', '07 66 77 88 99')">Supprimer</button>
                         </td>
                     </tr>
 
@@ -76,16 +120,25 @@
 
 <!-- SCRIPTS -->
 <script src="template.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script><link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
         // Lecture du mode dans l'URL
         const params = new URLSearchParams(window.location.search);
         const mode = params.get('mode');
 
-        // Adaptation du titre et des boutons selon le mode
-        if (mode === 'modifier') {
+        // Masquer le bouton Ajouter si non connecté
+        if (!isLoggedIn) {
+            document.getElementById('btn-ajouter').classList.add('d-none');
+        }
+
+        // Masquer immédiatement les boutons selon connexion et mode
+        if (!isLoggedIn) {
+            document.querySelectorAll('.btn-modifier, .btn-supprimer').forEach(btn => btn.classList.add('d-none'));
+        } else if (mode === 'modifier') {
             document.getElementById('titre-liste').textContent = 'Quel client souhaitez-vous modifier ?';
             document.querySelectorAll('.btn-supprimer').forEach(btn => btn.classList.add('d-none'));
         } else if (mode === 'supprimer') {
@@ -93,7 +146,6 @@
             document.querySelectorAll('.btn-modifier').forEach(btn => btn.classList.add('d-none'));
         }
 
-        // Fonctions
         window.voirClient = function (nom, prenom, adresse, ville, codePostal, telephone, email, chiffreAffaires) {
             localStorage.setItem('clientAVoir', JSON.stringify({
                 nom, prenom, adresse, ville, codePostal, telephone, email, chiffreAffaires

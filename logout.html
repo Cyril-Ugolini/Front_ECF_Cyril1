@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CRM - Déconnexion</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -19,8 +19,8 @@
     <div class="card p-4 text-center">
         <h1 class="mb-3">Déconnexion</h1>
         <p class="mb-4">Voulez-vous vraiment vous déconnecter ?</p>
-        <a class="btn btn-danger w-100" href="index.html">Oui, me déconnecter</a>
-        <a class="btn btn-secondary w-100 mt-3" href="index.html">Annuler</a>
+        <button class="btn btn-danger w-100" id="btn-deconnexion">Oui, me déconnecter</button>
+        <a class="btn btn-secondary w-100 mt-3" href="Index.html">Annuler</a>
     </div>
 </div>
 
@@ -29,7 +29,18 @@
 
 <!-- SCRIPTS -->
 <script src="template.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script><link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        document.getElementById('btn-deconnexion').addEventListener('click', function () {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('username');
+            window.location.href = 'Index.html';
+        });
+
+    });
+</script>
 
 </body>
 </html>

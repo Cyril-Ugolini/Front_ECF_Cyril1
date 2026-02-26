@@ -1,12 +1,15 @@
 {
   "name": "front-ecf-cyril",
   "version": "1.0.0",
-  "description": "Projet ECF Front-end – CRM client/prospect – Formation AFPA Développeur Web",
+  "description": "Projet ECF Front-end – CRM client/prospect – Formation AFPA Concepteur Développeur d'Application",
   "main": "Index.html",
   "scripts": {
     "start": "npx serve .",
     "dev": "npx serve . --listen 3000"
   },
   "author": "Cyril",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.8"
+  }
 }
