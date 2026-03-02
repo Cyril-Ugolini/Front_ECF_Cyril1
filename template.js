@@ -36,27 +36,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const headerType = document.body.getAttribute("data-header");
 
-            if (headerType === "retour") {
-                document.getElementById("header").innerHTML =
-                    doc.getElementById("tpl-header-retour").innerHTML;
-            } else {
-                document.getElementById("header").innerHTML =
-                    doc.getElementById("tpl-header").innerHTML;
+            // Injection sécurisée du header
+            const headerTarget = document.getElementById("header");
+            if (headerTarget) {
+                const headerSource = headerType === "retour"
+                    ? doc.getElementById("tpl-header-retour")
+                    : doc.getElementById("tpl-header");
 
-                initBurgerMenu();
+                if (headerSource) {
+                    headerTarget.replaceChildren(
+                        document.adoptNode(headerSource.cloneNode(true))
+                    );
+                }
+
+                if (headerType !== "retour") {
+                    initBurgerMenu();
+                }
             }
 
+            // Injection sécurisée de l'aside
             const asideTarget = document.getElementById("aside");
             if (asideTarget) {
-                asideTarget.innerHTML =
-                    doc.getElementById("tpl-aside").innerHTML;
+                const asideSource = doc.getElementById("tpl-aside");
+                if (asideSource) {
+                    asideTarget.replaceChildren(
+                        document.adoptNode(asideSource.cloneNode(true))
+                    );
+                }
             }
 
-            document.getElementById("footer").innerHTML =
-                doc.getElementById("tpl-footer").innerHTML;
+            // Injection sécurisée du footer
+            const footerTarget = document.getElementById("footer");
+            if (footerTarget) {
+                const footerSource = doc.getElementById("tpl-footer");
+                if (footerSource) {
+                    footerTarget.replaceChildren(
+                        document.adoptNode(footerSource.cloneNode(true))
+                    );
+                }
+            }
 
             gererConnexion();
-
         })
         .catch(err => {
             console.error("Erreur lors du chargement du template :", err);
@@ -91,35 +111,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function gererConnexion() {
         const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        const username = localStorage.getItem('username');
+        const username = localStorage.getItem('username') || '';
 
         // Bouton dans le menu burger
         const navConnexion = document.getElementById('nav-connexion');
         if (navConnexion) {
+            navConnexion.replaceChildren();
             if (isLoggedIn) {
-                navConnexion.innerHTML = `
-                    <p class="crm-username">👤 ${username}</p>
-                    <a href="logout.html" class="crm-btn-connexion">Déconnexion</a>
-                `;
+                const p = document.createElement('p');
+                p.className = 'crm-username';
+                p.textContent = '👤 ' + username;
+
+                const a = document.createElement('a');
+                a.href = 'logout.html';
+                a.className = 'crm-btn-connexion';
+                a.textContent = 'Déconnexion';
+
+                navConnexion.appendChild(p);
+                navConnexion.appendChild(a);
             } else {
-                navConnexion.innerHTML = `
-                    <a href="login.html" class="crm-btn-connexion">Connexion</a>
-                `;
+                const a = document.createElement('a');
+                a.href = 'login.html';
+                a.className = 'crm-btn-connexion';
+                a.textContent = 'Connexion';
+                navConnexion.appendChild(a);
             }
         }
 
         // Bouton dans l'aside
         const asideConnexion = document.getElementById('aside-connexion');
         if (asideConnexion) {
+            asideConnexion.replaceChildren();
             if (isLoggedIn) {
-                asideConnexion.innerHTML = `
-                    <p class="mt-2 mb-1 small">👤 ${username}</p>
-                    <a href="logout.html" class="btn btn-danger btn-sm w-100">Déconnexion</a>
-                `;
+                const p = document.createElement('p');
+                p.className = 'mt-2 mb-1 small';
+                p.textContent = '👤 ' + username;
+
+                const a = document.createElement('a');
+                a.href = 'logout.html';
+                a.className = 'btn btn-danger btn-sm w-100';
+                a.textContent = 'Déconnexion';
+
+                asideConnexion.appendChild(p);
+                asideConnexion.appendChild(a);
             } else {
-                asideConnexion.innerHTML = `
-                    <a href="login.html" class="btn btn-primary btn-sm w-100 mt-2">Connexion</a>
-                `;
+                const a = document.createElement('a');
+                a.href = 'login.html';
+                a.className = 'btn btn-primary btn-sm w-100 mt-2';
+                a.textContent = 'Connexion';
+                asideConnexion.appendChild(a);
             }
         }
 
