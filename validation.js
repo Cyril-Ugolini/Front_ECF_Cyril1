@@ -1,10 +1,3 @@
-/**
- * validation.js
- * Contrôles côté front avant envoi des données au serveur.
- * - Validation HTML5 (Bootstrap feedback)
- * - Contrôles métier JS (chiffre d'affaires, nb employés, etc.)
- */
-
 document.addEventListener('DOMContentLoaded', function () {
 
     // ─── Constantes métier ───────────────────────────────────────────────────────
@@ -140,15 +133,127 @@ document.addEventListener('DOMContentLoaded', function () {
     // ─── Auto-initialisation selon la page ───────────────────────────────────────
 
     if (document.getElementById('client-form')) {
-        initFormValidation('client-form', 'client');
+        window.initFormValidation('client-form', 'client');
     }
 
     if (document.getElementById('prospect-form')) {
-        initFormValidation('prospect-form', 'prospect');
+        window.initFormValidation('prospect-form', 'prospect');
     }
 
     if (document.getElementById('login-form')) {
-        initLoginValidation();
+        window.initLoginValidation();
+    }
+
+    // ─── Carte Leaflet + Météo Open-Meteo ────────────────────────────────────────
+
+    window.initCarteMeteo = function (adresse, codePostal, ville, nom, prenom) {
+
+        const adresseComplete = adresse + ' ' + codePostal + ' ' + ville;
+
+        // API Adresse gouvernement → latitude/longitude
+        fetch('https://api-adresse.data.gouv.fr/search/?q=' + encodeURIComponent(adresseComplete) + '&limit=1')
+            .then(res => res.json())
+            .then(data => {
+                if (data.features && data.features.length > 0) {
+                    const coords = data.features[0].geometry.coordinates;
+                    const lng = coords[0];
+                    const lat = coords[1];
+
+                    // Carte Leaflet + OpenStreetMap
+                    const carte = L.map('carte').setView([lat, lng], 15);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors'
+                    }).addTo(carte);
+                    L.marker([lat, lng])
+                        .addTo(carte)
+                        .bindPopup(nom + ' ' + prenom + '<br>' + adresse)
+                        .openPopup();
+
+                    // API Open-Meteo → météo
+                    return fetch(
+                        'https://api.open-meteo.com/v1/forecast?latitude=' + lat +
+                        '&longitude=' + lng +
+                        '&current_weather=true&wind_speed_unit=kmh&timezone=Europe%2FParis'
+                    );
+
+                } else {
+                    document.getElementById('meteo-contenu').textContent = 'Adresse introuvable.';
+                    document.getElementById('carte').textContent = 'Impossible d\'afficher la carte.';
+                }
+            })
+            .then(res => {
+                if (res) return res.json();
+            })
+            .then(meteo => {
+                if (!meteo) return;
+
+                const temp = meteo.current_weather.temperature;
+                const vent = meteo.current_weather.windspeed;
+                const code = meteo.current_weather.weathercode;
+
+                const meteoContenu = document.getElementById('meteo-contenu');
+                meteoContenu.replaceChildren();
+
+                const p1 = document.createElement('p');
+                p1.textContent = getIconeMeteo(code) + ' Température : ' + temp + ' °C';
+
+                const p2 = document.createElement('p');
+                p2.textContent = '💨 Vent : ' + vent + ' km/h';
+
+                const p3 = document.createElement('p');
+                p3.textContent = '📌 Conditions : ' + getDescriptionMeteo(code);
+
+                meteoContenu.appendChild(p1);
+                meteoContenu.appendChild(p2);
+                meteoContenu.appendChild(p3);
+            })
+            .catch(err => {
+                console.error('Erreur API :', err);
+                document.getElementById('meteo-contenu').textContent = 'Impossible de charger la météo.';
+            });
+    };
+
+    // ─── Codes météo Open-Meteo ───────────────────────────────────────────────────
+
+    function getIconeMeteo(code) {
+        if (code === 0) return '☀️';
+        if (code <= 2) return '⛅';
+        if (code <= 3) return '☁️';
+        if (code <= 49) return '🌫️';
+        if (code <= 59) return '🌦️';
+        if (code <= 69) return '🌧️';
+        if (code <= 79) return '🌨️';
+        if (code <= 82) return '🌧️';
+        if (code <= 99) return '⛈️';
+        return '🌡️';
+    }
+
+    function getDescriptionMeteo(code) {
+        if (code === 0) return 'Ciel dégagé';
+        if (code <= 2) return 'Partiellement nuageux';
+        if (code <= 3) return 'Couvert';
+        if (code <= 49) return 'Brouillard';
+        if (code <= 59) return 'Bruine';
+        if (code <= 69) return 'Pluie';
+        if (code <= 79) return 'Neige';
+        if (code <= 82) return 'Averses';
+        if (code <= 99) return 'Orage';
+        return 'Inconnu';
+    }
+
+    // ─── Auto-initialisation carte selon la page ─────────────────────────────────
+
+    if (document.getElementById('carte')) {
+        const clientData = localStorage.getItem('clientAVoir');
+        const prospectData = localStorage.getItem('prospectAVoir');
+
+        if (clientData) {
+            const client = JSON.parse(clientData);
+            window.initCarteMeteo(client.adresse, client.codePostal, client.ville, client.nom, client.prenom);
+        } else if (prospectData) {
+            const prospect = JSON.parse(prospectData);
+            window.initCarteMeteo(prospect.adresse, prospect.codePostal, prospect.ville, prospect.nom, prospect.prenom);
+        }
     }
 
 });

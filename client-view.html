@@ -6,6 +6,7 @@
     <title>CRM - Fiche client</title>
 
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -15,14 +16,15 @@
 <div id="header"></div>
 
 <!-- LAYOUT -->
-<div class="container">
+<div class="container py-4">
     <div class="row">
 
         <!-- CONTENU PRINCIPAL -->
         <main class="col-12 col-md-9">
             <h1 class="mb-4">Fiche client</h1>
 
-            <div class="card shadow-sm">
+            <!-- INFORMATIONS CLIENT -->
+            <div class="card mb-4">
                 <div class="card-body">
 
                     <h4 class="card-title mb-3" id="view-nom-complet"></h4>
@@ -41,6 +43,25 @@
 
                 </div>
             </div>
+
+            <!-- MÉTÉO -->
+            <div class="card mb-4" id="meteo-card">
+                <div class="card-body">
+                    <h5 class="card-title">🌤 Météo à <span id="meteo-ville"></span></h5>
+                    <div id="meteo-contenu">
+                        <p class="text-muted">Chargement de la météo...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARTE -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">📍 Localisation</h5>
+                    <div id="carte"></div>
+                </div>
+            </div>
+
         </main>
 
         <!-- ASIDE (desktop uniquement) -->
@@ -54,14 +75,25 @@
 
 <!-- SCRIPTS -->
 <script src="template.js"></script>
-<script><link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="node_modules/leaflet/dist/leaflet.js"></script>
+<script src="validation.js"></script>
 <script>
-    // Récupération des données depuis le localStorage
-    const clientData = localStorage.getItem('clientAVoir');
+    document.addEventListener('DOMContentLoaded', function () {
 
-    if (clientData) {
+        // Empêche la carte d'utiliser un ancien prospect
+        localStorage.removeItem('prospectAVoir');
+
+        const clientData = localStorage.getItem('clientAVoir');
+
+        if (!clientData) {
+            window.location.href = 'clients-list.html';
+            return;
+        }
+
         const client = JSON.parse(clientData);
 
+        // Remplissage des informations
         document.getElementById('view-nom-complet').textContent = client.nom + ' ' + client.prenom;
         document.getElementById('view-adresse').textContent = client.adresse;
         document.getElementById('view-ville').textContent = client.ville;
@@ -69,17 +101,15 @@
         document.getElementById('view-tel').textContent = client.telephone;
         document.getElementById('view-email').textContent = client.email;
         document.getElementById('view-ca').textContent = client.chiffreAffaires;
+        document.getElementById('meteo-ville').textContent = client.ville;
 
-        // Bouton modifier depuis la fiche
+        // Bouton modifier
         document.getElementById('btn-modifier').addEventListener('click', function () {
             localStorage.setItem('clientAModifier', JSON.stringify(client));
             window.location.href = 'client-form.html';
         });
 
-    } else {
-        // Si on arrive ici sans données, on redirige vers la liste
-        window.location.href = 'clients-list.html';
-    }
+    });
 </script>
 
 </body>

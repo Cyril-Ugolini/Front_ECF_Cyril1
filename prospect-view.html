@@ -6,6 +6,7 @@
     <title>CRM - Fiche prospect</title>
 
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -15,14 +16,15 @@
 <div id="header"></div>
 
 <!-- LAYOUT -->
-<div class="container">
+<div class="container py-4">
     <div class="row">
 
         <!-- CONTENU PRINCIPAL -->
         <main class="col-12 col-md-9">
             <h1 class="mb-4">Fiche prospect</h1>
 
-            <div class="card shadow-sm">
+            <!-- INFORMATIONS PROSPECT -->
+            <div class="card mb-4">
                 <div class="card-body">
 
                     <h4 class="card-title mb-3" id="view-nom-complet"></h4>
@@ -43,6 +45,25 @@
 
                 </div>
             </div>
+
+            <!-- MÉTÉO -->
+            <div class="card mb-4" id="meteo-card">
+                <div class="card-body">
+                    <h5 class="card-title">🌤 Météo à <span id="meteo-ville"></span></h5>
+                    <div id="meteo-contenu">
+                        <p class="text-muted">Chargement de la météo...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARTE -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">📍 Localisation</h5>
+                    <div id="carte"></div>
+                </div>
+            </div>
+
         </main>
 
         <!-- ASIDE (desktop uniquement) -->
@@ -56,17 +77,28 @@
 
 <!-- SCRIPTS -->
 <script src="template.js"></script>
-<script><link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="node_modules/leaflet/dist/leaflet.js"></script>
+<script src="validation.js"></script>
 <script>
-    // Récupération des données depuis le localStorage
-    const prospectData = localStorage.getItem('prospectAVoir');
+    document.addEventListener('DOMContentLoaded' , function () {
 
-    if (prospectData) {
+        // Empêche la carte d'utiliser un ancien client
+        localStorage.removeItem('clientAVoir');
+
+        const prospectData = localStorage.getItem('prospectAVoir');
+
+        if (!prospectData) {
+            window.location.href = 'prospects-list.html';
+            return;
+        }
+
         const prospect = JSON.parse(prospectData);
 
         document.getElementById('view-nom-complet').textContent = prospect.nom + ' ' + prospect.prenom;
         document.getElementById('view-adresse').textContent = prospect.adresse;
         document.getElementById('view-ville').textContent = prospect.ville;
+        document.getElementById('meteo-ville').textContent = prospect.ville;
         document.getElementById('view-cp').textContent = prospect.codePostal;
         document.getElementById('view-tel').textContent = prospect.telephone;
         document.getElementById('view-email').textContent = prospect.email;
@@ -74,16 +106,11 @@
         document.getElementById('view-ca').textContent = prospect.chiffreAffaires;
         document.getElementById('view-interesse').textContent = prospect.interesse;
 
-        // Bouton modifier depuis la fiche
         document.getElementById('btn-modifier').addEventListener('click', function () {
             localStorage.setItem('prospectAModifier', JSON.stringify(prospect));
             window.location.href = 'prospect-form.html';
         });
-
-    } else {
-        // Si on arrive ici sans données, on redirige vers la liste
-        window.location.href = 'prospects-list.html';
-    }
+    });
 </script>
 
 </body>

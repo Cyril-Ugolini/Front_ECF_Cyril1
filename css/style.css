@@ -209,6 +209,15 @@ body > main {
     color: #fff;
 }
 
+/* --- Nom utilisateur connecté --- */
+.crm-username {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #1a2332;
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+
 /* ============================================================
    ASIDE
 ============================================================ */
@@ -274,6 +283,27 @@ table th, table td { vertical-align: middle; }
 }
 
 /* ============================================================
+   CARTE LEAFLET
+============================================================ */
+#carte {
+    height: 350px;
+    border-radius: var(--radius);
+    z-index: 0;
+}
+
+/* ============================================================
+   MÉTÉO
+============================================================ */
+#meteo-card {
+    border-left: 4px solid var(--primary);
+}
+
+#meteo-contenu p {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+/* ============================================================
    FOOTER
 ============================================================ */
 footer {
@@ -322,6 +352,10 @@ footer .list-inline-item:not(:last-child)::after {
         flex: 1 !important;
         margin: 0 auto;
     }
+
+    #carte {
+        height: 280px;
+    }
 }
 
 /* ============================================================
@@ -350,6 +384,10 @@ footer .list-inline-item:not(:last-child)::after {
         padding: 4px 8px;
     }
 
+    #carte {
+        height: 220px;
+    }
+
     footer {
         margin-top: 2rem;
         padding: 1rem !important;
@@ -369,4 +407,5 @@ footer .list-inline-item:not(:last-child)::after {
     h1 { font-size: 1.2rem; }
     .btn { font-size: 0.82rem; }
     .crm-header { padding: 0 8px; }
+    #carte { height: 180px; }
 }
