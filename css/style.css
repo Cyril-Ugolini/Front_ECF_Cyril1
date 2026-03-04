@@ -2,17 +2,19 @@
    VARIABLES
 ============================================================ */
 :root {
-    --primary:      #0d6efd;
-    --primary-dark: #0b5ed7;
-    --bg:           #f8f9fa;
-    --bg-footer:    #e9ecef;
-    --text:         #1a1a2e;
+    --primary:      #1a56db;
+    --primary-dark: #1648c0;
+    --cyan:         #00d4ff;
+    --bg:           #0d1b3e;
+    --bg-dark:      #0a0e1a;
+    --bg-dark-2:    #0d1b3e;
+    --bg-dark-3:    #0a2463;
+    --text:         #ffffff;
     --text-muted:   #8a94a6;
-    --border:       #e2e8f0;
-    --shadow:       0 4px 24px rgba(0, 0, 0, 0.08);
+    --border:       rgba(0, 212, 255, 0.2);
+    --shadow:       0 4px 24px rgba(0, 0, 0, 0.3);
     --radius:       12px;
 }
-
 /* ============================================================
    RESET & BASE
 ============================================================ */
@@ -57,8 +59,8 @@ body > main {
    HEADER CRM
 ============================================================ */
 .crm-header {
-    background: #fff;
-    border-bottom: 1px solid #dde3ea;
+    background: linear-gradient(90deg, var(--bg-dark) 0%, var(--bg-dark-2) 100%);
+    border-bottom: 1px solid rgba(0, 212, 255, 0.2);
     padding: 0 24px;
     height: 56px;
     display: flex;
@@ -66,22 +68,30 @@ body > main {
     justify-content: space-between;
     position: relative;
     z-index: 100;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
 }
 
-.crm-brand {
+.crm-brand,
+.crm-brand:link,
+.crm-brand:visited {
     font-size: 0.95rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    color: #1a2332;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    color: #fff !important;
     text-decoration: none;
     white-space: nowrap;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    transition: text-shadow 0.3s;
+}
+.crm-brand:hover {
+    color: #fff !important;
+    text-shadow: 0 0 30px rgba(0, 212, 255, 0.9);
 }
 
 /* --- Burger button --- */
 .crm-burger {
     background: none;
-    border: 1.5px solid #c8d0da;
+    border: 1.5px solid rgba(0, 212, 255, 0.3);
     border-radius: 6px;
     width: 38px;
     height: 38px;
@@ -92,15 +102,18 @@ body > main {
     align-items: center;
     justify-content: center;
     gap: 5px;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
-.crm-burger:hover { border-color: #1a56db; }
+.crm-burger:hover {
+    border-color: var(--cyan);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
 
 .crm-burger span {
     display: block;
     width: 18px;
     height: 2px;
-    background: #4a5568;
+    background: var(--cyan);
     border-radius: 2px;
     transition: all 0.3s;
 }
@@ -114,9 +127,11 @@ body > main {
     top: 56px;
     right: 0;
     width: 280px;
-    background: #fff;
+    background: linear-gradient(180deg, var(--bg-dark-2) 0%, var(--bg-dark) 100%);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    border-top: none;
     border-radius: 0 0 12px 12px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     max-height: 0;
     opacity: 0;
@@ -128,7 +143,9 @@ body > main {
 }
 
 /* --- Accordéons --- */
-.crm-acc-item { border-bottom: 1px solid #eef0f4; }
+.crm-acc-item {
+    border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+}
 
 .crm-acc-toggle {
     width: 100%;
@@ -141,59 +158,88 @@ body > main {
     cursor: pointer;
     font-size: 0.95rem;
     font-weight: 700;
-    color: #1a2332;
-    transition: background 0.15s;
+    color: #fff;
+    letter-spacing: 0.05em;
+    transition: background 0.15s, color 0.15s;
 }
-.crm-acc-toggle:hover { background: #f5f7fa; }
+.crm-acc-toggle:hover {
+    background: rgba(0, 212, 255, 0.08);
+    color: var(--cyan);
+}
 
-.crm-arrow { font-size: 0.6rem; color: #6b7a8d; }
+.crm-arrow { font-size: 0.6rem; color: var(--cyan); }
 .crm-acc-toggle .crm-arrow::before { content: '▼'; }
 .crm-acc-toggle.open .crm-arrow::before { content: '▲'; }
 
 .crm-acc-content {
     max-height: 0;
     overflow: hidden;
-    background: #f9fafc;
+    background: rgba(0, 0, 0, 0.2);
     transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 .crm-acc-content.open { max-height: 300px; }
 
-.crm-acc-content a {
+.crm-acc-content a,
+.crm-acc-content a:link,
+.crm-acc-content a:visited {
     display: block;
     padding: 11px 36px;
     font-size: 0.88rem;
-    color: #4a5568;
+    color: rgba(255, 255, 255, 0.6) !important;
     text-decoration: none;
-    transition: color 0.15s, background 0.15s;
+    border-left: 2px solid transparent;
+    transition: color 0.15s, background 0.15s, padding-left 0.2s;
 }
 .crm-acc-content a:hover {
-    background: #eef2fb;
-    color: #1a56db;
+    background: rgba(0, 212, 255, 0.08);
+    color: var(--cyan) !important;
+    padding-left: 44px;
+    border-left-color: var(--cyan);
 }
 
 /* --- Bouton Connexion --- */
 .crm-nav-connexion { padding: 16px 20px; }
 
-.crm-btn-connexion {
+.crm-btn-connexion,
+.crm-btn-connexion:link,
+.crm-btn-connexion:visited {
     display: block;
     width: 100%;
-    background: #1a56db;
-    color: #fff;
+    background: linear-gradient(90deg, var(--primary), var(--bg-dark-3));
+    color: #fff !important;
     font-weight: 700;
     font-size: 0.95rem;
     text-align: center;
     padding: 12px;
     border-radius: 8px;
     text-decoration: none;
-    transition: background 0.2s;
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    box-shadow: 0 0 15px rgba(26, 86, 219, 0.3);
+    transition: all 0.2s;
 }
-.crm-btn-connexion:hover { background: #1648c0; }
+.crm-btn-connexion:hover {
+    background: linear-gradient(90deg, var(--primary-dark), var(--bg-dark-2));
+    color: var(--cyan) !important;
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.3);
+}
+
+/* --- Nom utilisateur connecté --- */
+.crm-username {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--cyan);
+    margin-bottom: 8px;
+    padding: 0 4px;
+    letter-spacing: 0.05em;
+}
 
 /* --- Bouton Retour --- */
-.crm-btn-retour {
+.crm-btn-retour,
+.crm-btn-retour:link,
+.crm-btn-retour:visited {
     margin-left: auto;
-    border: 1.5px solid #1a56db;
-    color: #1a56db;
+    border: 1.5px solid rgba(0, 212, 255, 0.4);
+    color: var(--cyan) !important;
     background: none;
     border-radius: 6px;
     padding: 7px 16px;
@@ -202,20 +248,13 @@ body > main {
     cursor: pointer;
     white-space: nowrap;
     text-decoration: none;
-    transition: background 0.2s, color 0.2s;
+    transition: all 0.2s;
 }
 .crm-btn-retour:hover {
-    background: #1a56db;
-    color: #fff;
-}
-
-/* --- Nom utilisateur connecté --- */
-.crm-username {
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: #1a2332;
-    margin-bottom: 8px;
-    padding: 0 4px;
+    background: rgba(0, 212, 255, 0.1);
+    color: #fff !important;
+    border-color: var(--cyan);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
 }
 
 /* ============================================================
@@ -227,13 +266,31 @@ aside {
     min-width: 140px;
 }
 
+aside .p-3 {
+    background: rgba(13, 27, 62, 0.8) !important;
+    border: 1px solid rgba(0, 212, 255, 0.15) !important;
+    border-radius: var(--radius) !important;
+}
+
+aside h5 {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
 aside ul li { margin-bottom: 8px; }
 
-aside a {
+aside a,
+aside a:link,
+aside a:visited {
     text-decoration: none;
-    color: var(--primary);
+    color: rgba(255, 255, 255, 0.7) !important;
 }
-aside a:hover { text-decoration: underline; }
+aside a:hover {
+    color: var(--cyan) !important;
+    text-decoration: none;
+}
 
 /* ============================================================
    FORMULAIRES
@@ -307,25 +364,248 @@ table th, table td { vertical-align: middle; }
    FOOTER
 ============================================================ */
 footer {
-    background-color: var(--bg-footer) !important;
-    border-top: 1px solid var(--border);
+    background: linear-gradient(90deg, var(--bg-dark) 0%, var(--bg-dark-2) 100%) !important;
+    border-top: 1px solid rgba(0, 212, 255, 0.2) !important;
     padding: 0.8rem 1rem !important;
     font-size: 0.78rem;
     text-align: center;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.7) !important;
 }
 
-footer a {
-    color: var(--text-muted);
+footer *,
+footer a,
+footer a:link,
+footer a:visited {
+    color: rgba(255, 255, 255, 0.7) !important;
     text-decoration: none;
-    transition: color 0.2s;
 }
-footer a:hover { color: var(--primary); }
+
+footer a:hover {
+    color: var(--cyan) !important;
+}
 
 footer .list-inline-item:not(:last-child)::after {
     content: " |";
     margin-left: 0.3rem;
+    color: rgba(0, 212, 255, 0.3) !important;
 }
+
+/* ============================================================
+   HERO SECTION
+============================================================ */
+.hero-section {
+    position: relative;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-2) 50%, var(--bg-dark-3) 100%);
+    min-height: calc(100vh - 56px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* --- Lueur centrale --- */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(26, 86, 219, 0.15) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.hero-overlay { display: none; }
+
+/* --- Grille tech --- */
+.hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+            linear-gradient(rgba(26, 86, 219, 0.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(26, 86, 219, 0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+/* --- Étoiles --- */
+.stars {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* --- Cercles tech animés --- */
+.tech-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    animation: rotate 20s linear infinite;
+}
+
+.tech-circle-1 {
+    width: 500px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.tech-circle-2 {
+    width: 350px;
+    height: 350px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-color: rgba(26, 86, 219, 0.2);
+    animation-direction: reverse;
+    animation-duration: 15s;
+}
+
+.tech-circle-2::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--cyan);
+    border-radius: 50%;
+    top: -4px;
+    left: 50%;
+    box-shadow: 0 0 10px var(--cyan);
+}
+
+.tech-circle-3 {
+    width: 650px;
+    height: 650px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-color: rgba(0, 212, 255, 0.08);
+    animation-duration: 30s;
+}
+
+.tech-circle-3::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    bottom: -3px;
+    left: 50%;
+    box-shadow: 0 0 10px var(--primary);
+}
+
+@keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* --- Contenu hero --- */
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+}
+
+.hero-tag { display: none; }
+
+.hero-title {
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: #fff;
+    text-shadow: 0 0 60px rgba(0, 212, 255, 0.4);
+    margin-bottom: 1.5rem;
+    line-height: 1;
+}
+
+.hero-subtitle {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.03em;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* --- Boutons hero --- */
+.btn-hero-primary,
+.btn-hero-primary:link,
+.btn-hero-primary:visited,
+.btn-hero-primary:active,
+.btn-hero-primary:focus {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 18px 48px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none !important;
+    transition: all 0.3s;
+    min-width: 200px;
+    justify-content: center;
+    background: var(--primary) !important;
+    color: #fff !important;
+    border: none;
+    box-shadow: 0 0 30px rgba(26, 86, 219, 0.5);
+}
+.btn-hero-primary:hover {
+    background: var(--primary-dark) !important;
+    color: #fff !important;
+    box-shadow: 0 0 50px rgba(26, 86, 219, 0.8) !important;
+    transform: translateY(-3px);
+}
+
+.btn-hero-secondary,
+.btn-hero-secondary:link,
+.btn-hero-secondary:visited,
+.btn-hero-secondary:active,
+.btn-hero-secondary:focus {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 18px 48px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none !important;
+    transition: all 0.3s;
+    min-width: 200px;
+    justify-content: center;
+    background: transparent !important;
+    color: #fff !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: none;
+}
+.btn-hero-secondary:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #fff !important;
+    border-color: var(--cyan) !important;
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.2) !important;
+    transform: translateY(-3px);
+}
+
+.btn-hero-icon { font-size: 1.4rem; }
 
 /* ============================================================
    RESPONSIVE — Tablette (< 992px)
@@ -340,9 +620,7 @@ footer .list-inline-item:not(:last-child)::after {
         flex-direction: column;
     }
 
-    .row {
-        flex: 1;
-    }
+    .row { flex: 1; }
 
     #aside { display: none !important; }
 
@@ -353,9 +631,7 @@ footer .list-inline-item:not(:last-child)::after {
         margin: 0 auto;
     }
 
-    #carte {
-        height: 280px;
-    }
+    #carte { height: 280px; }
 }
 
 /* ============================================================
@@ -384,9 +660,7 @@ footer .list-inline-item:not(:last-child)::after {
         padding: 4px 8px;
     }
 
-    #carte {
-        height: 220px;
-    }
+    #carte { height: 220px; }
 
     footer {
         margin-top: 2rem;
@@ -398,6 +672,20 @@ footer .list-inline-item:not(:last-child)::after {
         margin: 3px 0;
     }
     .footer-links .list-inline-item::after { display: none !important; }
+
+    .hero-title { font-size: 3rem; letter-spacing: 0.1em; }
+    .hero-subtitle { font-size: 0.95rem; }
+
+    .btn-hero-primary,
+    .btn-hero-secondary {
+        padding: 14px 32px !important;
+        font-size: 1rem !important;
+        min-width: 160px !important;
+    }
+
+    .tech-circle-1 { width: 300px; height: 300px; }
+    .tech-circle-2 { width: 200px; height: 200px; }
+    .tech-circle-3 { width: 400px; height: 400px; }
 }
 
 /* ============================================================
@@ -408,4 +696,14 @@ footer .list-inline-item:not(:last-child)::after {
     .btn { font-size: 0.82rem; }
     .crm-header { padding: 0 8px; }
     #carte { height: 180px; }
+    .hero-title { font-size: 2.2rem; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+}
+a.btn-hero-primary,
+a.btn-hero-primary:link,
+a.btn-hero-primary:visited,
+a.btn-hero-primary:active,
+a.btn-hero-primary:focus {
+    background: var(--primary) !important;
+    color: #fff !important;
 }

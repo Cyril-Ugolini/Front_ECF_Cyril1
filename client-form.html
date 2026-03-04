@@ -19,10 +19,10 @@
     <div class="row">
 
         <!-- CONTENU PRINCIPAL -->
-        <main class="col-12 col-md-9">
+        <main class="col-12 col-md-9" role="main">
             <h1 class="mb-4" id="form-titre">Ajouter un client</h1>
 
-            <form class="row g-3" id="client-form" novalidate>
+            <form class="row g-3" id="client-form" novalidate aria-label="Formulaire client">
 
                 <div class="col-md-6">
                     <label for="client-nom" class="form-label">Nom <span class="text-danger">*</span></label>
@@ -95,7 +95,7 @@
 
 <!-- SCRIPTS -->
 <script src="template.js"></script>
-<script><link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="validation.js"></script>
 <script>
     // Pré-remplissage si on vient de "Modifier"
