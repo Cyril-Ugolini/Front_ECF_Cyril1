@@ -9,35 +9,31 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body data-header="full">
+<body data-header="full" class="home-page">
 
 <!-- HEADER dynamique -->
 <div id="header"></div>
 
-<!-- HERO PLEIN ÉCRAN -->
-<section class="hero-section">
+<!-- ÉTOILES ANIMÉES -->
+<div class="stars" id="stars"></div>
 
-    <!-- ÉTOILES ANIMÉES -->
-    <div class="stars" id="stars"></div>
+<!-- CERCLES TECH -->
+<div class="tech-circle tech-circle-1"></div>
+<div class="tech-circle tech-circle-2"></div>
+<div class="tech-circle tech-circle-3"></div>
 
-    <!-- CERCLES TECH -->
-    <div class="tech-circle tech-circle-1"></div>
-    <div class="tech-circle tech-circle-2"></div>
-    <div class="tech-circle tech-circle-3"></div>
+<!-- GRILLE -->
+<div class="hero-grid"></div>
 
-    <!-- GRILLE -->
-    <div class="hero-grid"></div>
-
-    <div class="hero-content text-center">
-        <h1 class="hero-title">ENTREPRISE</h1>
-        <p class="hero-subtitle">Gérez vos clients et prospects<br>depuis une interface unique et intuitive.</p>
-        <div class="hero-buttons">
-            <a href="clients-list.html" class="btn-hero-secondary">Clients</a>
-            <a href="prospects-list.html" class="btn-hero-secondary">Prospects</a>
-        </div>
+<!-- CONTENU CENTRÉ -->
+<main class="home-content text-center" role="main">
+    <h1 class="home-title">ENTREPRISE</h1>
+    <p class="home-subtitle">Gérez vos clients et prospects<br>depuis une interface unique et intuitive.</p>
+    <div class="home-buttons">
+        <a href="clients-list.html" class="btn-home">Clients</a>
+        <a href="prospects-list.html" class="btn-home">Prospects</a>
     </div>
-
-</section>
+</main>
 
 <!-- FOOTER dynamique -->
 <div id="footer"></div>
@@ -47,7 +43,6 @@
 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
         const starsContainer = document.getElementById('stars');
         for (let i = 0; i < 120; i++) {
             const star = document.createElement('div');
@@ -61,7 +56,6 @@
             star.style.animationDuration = (Math.random() * 3 + 2) + 's';
             starsContainer.appendChild(star);
         }
-
     });
 </script>
 
